@@ -14,8 +14,34 @@ let quotes = [
     quoteDisplayDiv.innerHTML = `<p>${randomQuote.text} - <em>${randomQuote.category}</em></p>`;
   }
   
-  // Adding event listener to the "Show New Quote" button
-  document.getElementById('newQuote').addEventListener('click', showRandomQuote);
+  // Function to create the form dynamically for adding new quotes
+  function createAddQuoteForm() {
+    const formDiv = document.createElement('div');
+  
+    // Create input fields for the new quote text and category
+    const newQuoteTextInput = document.createElement('input');
+    newQuoteTextInput.setAttribute('id', 'newQuoteText');
+    newQuoteTextInput.setAttribute('type', 'text');
+    newQuoteTextInput.setAttribute('placeholder', 'Enter a new quote');
+  
+    const newQuoteCategoryInput = document.createElement('input');
+    newQuoteCategoryInput.setAttribute('id', 'newQuoteCategory');
+    newQuoteCategoryInput.setAttribute('type', 'text');
+    newQuoteCategoryInput.setAttribute('placeholder', 'Enter quote category');
+  
+    // Create the "Add Quote" button
+    const addButton = document.createElement('button');
+    addButton.innerText = 'Add Quote';
+    addButton.addEventListener('click', addQuote);
+  
+    // Append the inputs and button to the formDiv
+    formDiv.appendChild(newQuoteTextInput);
+    formDiv.appendChild(newQuoteCategoryInput);
+    formDiv.appendChild(addButton);
+  
+    // Add the form to the body (or any specific location in the DOM)
+    document.body.appendChild(formDiv);
+  }
   
   // Function to add a new quote to the array
   function addQuote() {
@@ -37,6 +63,13 @@ let quotes = [
     }
   }
   
+  // Adding event listener to the "Show New Quote" button
+  document.getElementById('newQuote').addEventListener('click', showRandomQuote);
+  
   // Display an initial random quote when the page loads
-  window.onload = showRandomQuote;
+  window.onload = () => {
+    showRandomQuote();
+    createAddQuoteForm();  // Create the form when the page loads
+  };
+  
   
